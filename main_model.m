@@ -22,7 +22,8 @@ plot_raw_data = true;
 plot_rf_signal = false;
 
 % input message
-message_in = 'Hello';
+message_in = 'Fuck you';
+disp(message_in);
 
 
 %% Modulation
@@ -89,8 +90,9 @@ end
 
 % varicode decoding
 message_out = varicode_decode(plain_out);
-
-
+ascii_array = str2double(message_out);
+str = sprintf('%c',ascii_array);
+disp(str);
 %% Plotting
 
 raw_in = repelem(encoded_in * 2 - 1, osr, 1);
