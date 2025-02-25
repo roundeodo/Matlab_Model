@@ -1,5 +1,5 @@
 clear
-% close all
+ close all
 
 
 %% Settings
@@ -7,7 +7,7 @@ clear
 % baseband modeling parameters
 use_fec = true; % enable/disable forward error correction
 bt = 0.5; % gaussian filter bandwidth
-snr = 200; % in-band signal to noise ratio (dB)
+snr = 12; % in-band signal to noise ratio (dB)
 osr = 16; % oversampling ratio
 
 % RF modeling parameters
@@ -19,10 +19,10 @@ fs = 50e3; % sample frequency (Hz)
 
 % plotting parameters
 plot_raw_data = true;
-plot_rf_signal = false;
+plot_rf_signal = true;
 
 % input message
-message_in = 'Fuck you';
+message_in = 'abcdefghijklmnopqrstuvwxyz';
 disp(message_in);
 
 
@@ -116,3 +116,67 @@ if plot_rf_signal && use_rf
          time_out, signal_out, '-');
     grid();
 end
+
+% %% complex_envelope_in Plotting
+% t = (1:length(complex_envelope_in)); % 时间索引
+% figure;
+% subplot(2,1,1);
+% plot(t, real(complex_envelope_in)); % 画 I 分量
+% title('实部 I (In-phase component)');
+% xlabel('样本索引');
+% ylabel('幅度');
+% grid on;
+% 
+% subplot(2,1,2);
+% plot(t, imag(complex_envelope_in)); % 画 Q 分量
+% title('虚部 Q (Quadrature component)');
+% xlabel('样本索引');
+% ylabel('幅度');
+% grid on;
+% 
+% figure;
+% plot(t, abs(complex_envelope_in)); % 画出幅度
+% title('复包络幅度 |complex\_envelope|');
+% xlabel('样本索引');
+% ylabel('幅度');
+% grid on;
+% 
+% figure;
+% plot(t, angle(complex_envelope_in)); % 画出相位
+% title('复包络的相位 angle(complex\_envelope)');
+% xlabel('样本索引');
+% ylabel('相位 (弧度)');
+% grid on;
+% 
+% 
+% figure;
+% plot(real(complex_envelope_in), imag(complex_envelope_in), '.');
+% title('GMSK IQ 轨迹');
+% xlabel('I 分量');
+% ylabel('Q 分量');
+% axis equal;
+% grid on;
+% 
+% %% Plotting upmixed signal
+% t = (0:length(signal_in)-1); % 时间索引
+% figure;
+% plot(t, signal_in);
+% title('上变频后信号的时域波形');
+% xlabel('样本索引');
+% ylabel('幅度');
+% grid on;
+% 
+% 
+% N = length(signal_in); % 信号长度
+% f = (-N/2:N/2-1) * (fs/N); % 频率轴
+% 
+% % 计算 FFT
+% S_f = fftshift(abs(fft(signal_in)));
+% 
+% % 画出频谱
+% figure;
+% plot(f, S_f);
+% title('上变频后信号的频谱');
+% xlabel('频率 (Hz)');
+% ylabel('幅度');
+% grid on;

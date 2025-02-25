@@ -6,5 +6,5 @@ symbols = interp1(t, signal, clock);
 
 % convert to bits
 bits = (symbols > 0);
-
+bits = [bits(3:end);bits(1);bits(2)];
 end

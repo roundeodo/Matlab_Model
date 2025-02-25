@@ -5,7 +5,7 @@ symbols = bits * 2 - 1;%符号扩展  从0/1 映射到+1 / -1
 
 % apply gaussian filter
 filt = gaussian_filter(bt, osr);
-data_filtered = conv(repelem(symbols, osr, 1), filt, 'same');%repelem是对符号进行扩展 这样在一个符号周期内，就有更对的采样点
+data_filtered = conv(repelem(symbols, osr, 1), filt, 'same');%repelem是对符号进行扩展 这样在一个符号周期内，就有更多的采样点
 %然后这里把扩展后的数据 和 高斯滤波器 做卷积  所以就会得到filtered之后的data
 
 % calculate phase
