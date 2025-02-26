@@ -4,7 +4,7 @@ function IQ_synced = costas_loop(IQ_signal, loop_gain)
     Q = imag(IQ_signal);
     
     % 初始化相位误差
-    phase_error = 0;
+    phase_error = 0.02;
     
     % 生成本地载波（相位调整）
     for k = 1:length(IQ_signal)

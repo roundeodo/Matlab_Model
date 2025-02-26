@@ -5,7 +5,19 @@ function raw = gmsk_demodulate(complex_envelope, osr)
 % TIP: Search for demodulation methods online. Are you going for the
 % coherent or incoherent approach?
 
+fs = 20.0e3;
 % apply a simple filter
+phase_noise_power = -20; % 相位噪声功率(dBc/Hz)
+complex_envelope = phase_noise(complex_envelope, fs, phase_noise_power);
+
+% 设计匹配滤波器（与发送端相同）
+bt = 0.5;       % 确保与发射端一致
+matched_filter = gaussian_filter(bt, osr); % 直接使用发射端的高斯滤波器
+
+% 对下变频后的信号进行匹配滤波
+complex_envelope = conv(complex_envelope, matched_filter, 'same');
+
+
 IQ_synced = costas_loop(complex_envelope,0.01);
 I = real(IQ_synced);
 Q = imag(IQ_synced);
