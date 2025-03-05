@@ -7,22 +7,22 @@ clear
 % baseband modeling parameters
 use_fec = true; % enable/disable forward error correction
 bt = 0.5; % gaussian filter bandwidth
-snr = 10; % in-band signal to noise ratio (dB)
+snr = 9; % in-band signal to noise ratio (dB)
 osr = 16; % oversampling ratio
 
 % RF modeling parameters
 use_rf = true; % enable/disable RF model
-adc_levels = 16; % number of ADC output codes (NB: #bits = log2[#levels])
+adc_levels = 32; % number of ADC output codes (NB: #bits = log2[#levels])
 br = 100; % bit rate (bit/s)
 fc = 20.0e3; % carrier frequency (Hz)
-fs = 50e3; % sample frequency (Hz)
+fs = 48.0e3; % sample frequency (Hz)
 
 % plotting parameters
 plot_raw_data = true;
 plot_rf_signal = true;
 
 % input message
-message_in = 'abcdefghijklmnopqrstuvwxyz';
+message_in = 'abcdefghijklmnopqrstuvwxyz123456789123456789';
 disp(message_in);
 
 
@@ -94,7 +94,7 @@ ascii_array = str2double(message_out);
 str = sprintf('%c',ascii_array);
 disp(str);
 
-BER = compute_BER(encoded_in, encoded_out);
+BER = compute_BER(plain_in, plain_out);
 %% Plotting
 
 raw_in = repelem(encoded_in * 2 - 1, osr, 1);

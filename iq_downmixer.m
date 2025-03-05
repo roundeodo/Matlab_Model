@@ -15,8 +15,8 @@ function complex_envelope = iq_downmixer(signal, osr, br, fc, fs)
 
     %% **Step 2: Setup CIC Decimator**
     R = round(fs / (br * osr)); % 计算降采样因子，使输出接近目标采样率
-    N = 5;  % CIC 级联级数，影响低通滤波效果
-    M = 1;  % 差分阶数，通常为 1
+    M = 3;  % CIC 级联级数，影响低通滤波效果
+    N = 5;  % 差分阶数，通常为 1
 
     % 创建 Matlab 内置 CIC 降采样滤波器
     cic_decim = dsp.CICDecimator(R, M, N);

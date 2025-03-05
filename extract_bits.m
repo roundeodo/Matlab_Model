@@ -4,7 +4,11 @@ function bits = extract_bits(signal, clock, osr)
 t = ((1 : numel(signal))' - 1) / osr;
 symbols = interp1(t, signal, clock);
 
-% convert to bits
-bits = (symbols > 0);
-bits = [bits(3:end);bits(1);bits(2)];
+% convert to bits binary extract
+ bits = (symbols > 0);
+
+%multiple level extract
+ % bits = round(127*symbols / max(abs(symbols)));
+ % bits = bits + 127;
+ bits = [bits(3:end);bits(1);bits(2)];
 end
